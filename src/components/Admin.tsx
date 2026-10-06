@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { api, getToken, setToken } from "../api";
-import type { AdminParticipant, Status } from "../api";
+import { api, getToken, setToken, DEFAULT_SETTINGS } from "../api";
+import type { AdminParticipant, Status, DisplaySettings } from "../api";
 import { PRIZES } from "../data/prizes";
 import logoXlsmart from "../assets/logo/XLSMART.png";
 
@@ -66,12 +66,44 @@ function Login({ onDone }: { onDone: () => void }) {
   );
 }
 
+function LogoControl({ label, value, onChange }: {
+  label: string;
+  value: DisplaySettings["logoLeft"];
+  onChange: (v: DisplaySettings["logoLeft"]) => void;
+}) {
+  return (
+    <div className="rounded-xl bg-white p-4 shadow-sm">
+      <label className="flex items-center justify-between gap-3">
+        <span className="font-semibold">{label}</span>
+        <span className="flex items-center gap-2 text-sm">
+          <input type="checkbox" checked={value.visible} onChange={(e) => onChange({ ...value, visible: e.target.checked })} />
+          Tampilkan
+        </span>
+      </label>
+      <div className={`mt-3 flex items-center gap-3 ${value.visible ? "" : "opacity-40"}`}>
+        <input
+          type="range" min={20} max={400} value={value.height} disabled={!value.visible}
+          onChange={(e) => onChange({ ...value, height: Number(e.target.value) })}
+          className="flex-1"
+        />
+        <input
+          type="number" min={20} max={400} value={value.height} disabled={!value.visible}
+          onChange={(e) => onChange({ ...value, height: Number(e.target.value) })}
+          className="w-20 rounded-lg border border-slate-300 px-2 py-1 text-sm"
+        />
+        <span className="text-sm text-slate-500">px</span>
+      </div>
+    </div>
+  );
+}
+
 export default function Admin() {
   const [authed, setAuthed] = useState(!!getToken());
   const [rows, setRows] = useState<AdminParticipant[]>([]);
   const [filter, setFilter] = useState<Status | "all">("all");
   const [search, setSearch] = useState("");
   const [toast, setToast] = useState<{ text: string; error?: boolean } | null>(null);
+  const [display, setDisplay] = useState<DisplaySettings>(DEFAULT_SETTINGS);
   const [confirmBox, setConfirmBox] = useState<Confirm | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -92,7 +124,11 @@ export default function Admin() {
     }
   }, [notify]);
 
-  useEffect(() => { if (authed) load(); }, [authed, load]);
+  useEffect(() => {
+    if (!authed) return;
+    load();
+    api.settings().then(setDisplay).catch(() => {});
+  }, [authed, load]);
 
   const run = async (fn: () => Promise<unknown>, okMsg = "") => {
     try {
@@ -186,6 +222,24 @@ export default function Admin() {
               <div className="text-3xl font-extrabold tabular-nums">{s.value}</div>
             </button>
           ))}
+        </section>
+
+        {/* Pengaturan logo layar undian */}
+        <section>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-lg font-bold">Logo layar undian</h2>
+            <button
+              className={btn.primary}
+              onClick={() => run(async () => { setDisplay(await api.saveSettings(display)); return "Pengaturan logo disimpan"; })}
+            >
+              Simpan
+            </button>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2">
+            <LogoControl label="Logo kiri atas (XLSMART)" value={display.logoLeft} onChange={(v) => setDisplay({ ...display, logoLeft: v })} />
+            <LogoControl label="Logo kanan atas (SiDIVA)" value={display.logoRight} onChange={(v) => setDisplay({ ...display, logoRight: v })} />
+          </div>
+          <p className="mt-2 text-xs text-slate-500">Ukuran = tinggi logo pada kanvas 1920×1080. Muat ulang layar undian setelah menyimpan.</p>
         </section>
 
         {/* Hadiah & pemenang */}

@@ -1,6 +1,6 @@
-import img1jt from "../assets/New_Hadiah/1JT KOIN (seragam).png";
-import img700rb from "../assets/New_Hadiah/700RB KOIN (seragam).png";
-import img500rb from "../assets/New_Hadiah/500RB KOIN (seragam).png";
+import img1jt from "../assets/New_Hadiah/1JT KOIN.png";
+import img700rb from "../assets/New_Hadiah/700RB KOIN.png";
+import img500rb from "../assets/New_Hadiah/500RB KOIN.png";
 
 export interface Prize {
   id: number;
@@ -20,11 +20,11 @@ export interface Participant {
 
 export const PRIZES: Prize[] = [
   {
-    id: 1,
+    id: 3,
     name: "UANG TUNAI",
-    amountLabel: "Rp 1.000.000",
-    image: img1jt,
-    quantity: 10,
+    amountLabel: "Rp 500.000",
+    image: img500rb,
+    quantity: 6,
     color: "#FFFFFF",
     glowColor: "rgba(255, 255, 255, 0.6)",
   },
@@ -38,11 +38,11 @@ export const PRIZES: Prize[] = [
     glowColor: "rgba(255, 255, 255, 0.6)",
   },
   {
-    id: 3,
+    id: 1,
     name: "UANG TUNAI",
-    amountLabel: "Rp 500.000",
-    image: img500rb,
-    quantity: 6,
+    amountLabel: "Rp 1.000.000",
+    image: img1jt,
+    quantity: 10,
     color: "#FFFFFF",
     glowColor: "rgba(255, 255, 255, 0.6)",
   },

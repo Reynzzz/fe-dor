@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import type { Prize, Participant } from "../data/prizes";
-import { api } from "../api";
+import { api, DEFAULT_SETTINGS } from "../api";
+import type { DisplaySettings } from "../api";
 import SpinBox from "./SpinBox";
 import bgImage from "../assets/background/bg 3.png";
 import logoXlsmart from "../assets/logo/Logogram XLSMART - Primary_1.png";
 import tagline from "../assets/New_Hadiah/TAGLINE DOORPRIZE.png";
 import logoSidiva from "../assets/logo/LOGO SIDIVA GOLD.png";
-import Confetti from "react-confetti";
 
 interface PrizeScreenProps {
   prize: Prize;
@@ -35,7 +35,12 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
   const [pool, setPool] = useState<Participant[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [settings, setSettings] = useState<DisplaySettings>(DEFAULT_SETTINGS);
   const completedRef = useRef(0);
+
+  useEffect(() => {
+    api.settings().then(setSettings).catch(() => {});
+  }, []);
 
   /* Muat pool peserta + pemenang yang sudah tersimpan di server (aman saat refresh / pindah hadiah) */
   useEffect(() => {
@@ -136,7 +141,6 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [globalState, isFirst, isLast, handleSpin, handleSpinSingle, onNext, onBack, prize.quantity]);
 
-  const done = globalState === "done";
 
   /* Bagi slot: separuh pertama kiri, separuh sisanya kanan */
   const half = Math.ceil(prize.quantity / 2);
@@ -171,23 +175,14 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
         className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
       />
 
-      {/* ── Confetti untuk hadiah terakhir ── */}
-      {done && isLast && (
-        <div className="absolute inset-0 z-50 pointer-events-none">
-          <Confetti
-            width={1920}
-            height={1080}
-            recycle={false}
-            numberOfPieces={800}
-            gravity={0.12}
-          />
-        </div>
-      )}
-
       {/* ══ TOP BAR: XLSMART kiri, SiDIVA kanan ══ */}
       <div className="relative z-10 flex items-center justify-between flex-shrink-0 px-[4vw] pt-10 ">
-        <img src={logoXlsmart} alt="XLSMART" className="h-[130px] w-auto" />
-        <img src={logoSidiva} alt="SiDIVA" className="h-[110px] w-auto " />
+        {settings.logoLeft.visible
+          ? <img src={logoXlsmart} alt="XLSMART" style={{ height: settings.logoLeft.height }} className="w-auto" />
+          : <span />}
+        {settings.logoRight.visible
+          ? <img src={logoSidiva} alt="SiDIVA" style={{ height: settings.logoRight.height }} className="w-auto" />
+          : <span />}
       </div>
 
       {/* ══ MAIN CONTENT ══ */}

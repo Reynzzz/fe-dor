@@ -20,6 +20,21 @@ export interface AdminParticipant {
   wonAt: string | null;
 }
 
+export interface LogoSetting {
+  visible: boolean;
+  height: number; // px pada kanvas 1920×1080
+}
+
+export interface DisplaySettings {
+  logoLeft: LogoSetting;
+  logoRight: LogoSetting;
+}
+
+export const DEFAULT_SETTINGS: DisplaySettings = {
+  logoLeft: { visible: true, height: 130 },
+  logoRight: { visible: true, height: 110 },
+};
+
 const TOKEN_KEY = "doorprizeAdminToken";
 export const getToken = () => sessionStorage.getItem(TOKEN_KEY);
 export const setToken = (t: string | null) =>
@@ -40,6 +55,9 @@ async function request<T>(path: string, init: RequestInit = {}, auth = false): P
 const post = (body: unknown): RequestInit => ({ method: "POST", body: JSON.stringify(body) });
 
 export const api = {
+  settings: () => request<DisplaySettings>("/settings"),
+  saveSettings: (s: DisplaySettings) =>
+    request<DisplaySettings>("/admin/settings", { method: "PUT", body: JSON.stringify(s) }, true),
   pool: () => request<Participant[]>("/pool"),
   winners: (prizeId: number) => request<Winner[]>(`/winners/${prizeId}`),
   draw: (prizeId: number, quantity: number) =>
