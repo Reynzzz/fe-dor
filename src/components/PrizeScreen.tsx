@@ -175,12 +175,14 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
 
       {/* ══ TOP BAR: XLSMART kiri, SiDIVA kanan ══ */}
       <div className="relative z-10 flex items-center justify-between flex-shrink-0 px-[4vw] pt-10 ">
-        {settings.logoLeft.visible
-          ? <img src={logoXlsmart} alt="XLSMART" style={{ height: settings.logoLeft.height }} className="w-auto" />
-          : <span />}
-        {settings.logoRight.visible
-          ? <img src={logoSidiva} alt="SiDIVA" style={{ height: settings.logoRight.height }} className="w-auto" />
-          : <span />}
+        <img
+          src={logoXlsmart} alt="XLSMART" className="w-auto"
+          style={{ height: settings.logoLeft.height, visibility: settings.logoLeft.visible ? "visible" : "hidden" }}
+        />
+        <img
+          src={logoSidiva} alt="SiDIVA" className="w-auto"
+          style={{ height: settings.logoRight.height, visibility: settings.logoRight.visible ? "visible" : "hidden" }}
+        />
       </div>
 
       {/* ══ MAIN CONTENT ══ */}
