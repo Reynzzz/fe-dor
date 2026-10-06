@@ -24,8 +24,6 @@ function PrizeRoute() {
     <PrizeScreen
       key={currentPrize}
       prize={PRIZES[currentPrize]}
-      prizeIndex={currentPrize}
-      totalPrizes={PRIZES.length}
       onBack={handleBack}
       onNext={handleNext}
       isFirst={currentPrize === 0}

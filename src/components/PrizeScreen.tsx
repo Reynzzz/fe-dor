@@ -14,8 +14,6 @@ interface PrizeScreenProps {
   onNext: () => void;
   isFirst: boolean;
   isLast: boolean;
-  prizeIndex: number;
-  totalPrizes: number;
 }
 
 type GlobalState = "idle" | "spinning" | "done";
@@ -26,7 +24,7 @@ interface SlotState {
 }
 
 const PrizeScreen: React.FC<PrizeScreenProps> = ({
-  prize, onBack, onNext, isFirst, isLast, prizeIndex, totalPrizes,
+  prize, onBack, onNext, isFirst, isLast,
 }) => {
   const [globalState, setGlobalState] = useState<GlobalState>("idle");
   const emptySlots = () =>
@@ -209,7 +207,9 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
       )}
 
       {/* ══ BOTTOM BAR: tagline ══ */}
-    
+      <div className="relative z-10 flex items-center justify-center flex-shrink-0 px-[4vw] pb-[2vh]">
+        <img src={tagline} alt="Go Beyond, Be The Best" className="h-[100px] w-auto" />
+      </div>
     </div>
   );
 };
