@@ -209,12 +209,7 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
       )}
 
       {/* ══ BOTTOM BAR: tagline ══ */}
-      <div className="relative z-10 flex items-center justify-center flex-shrink-0 px-[4vw] pb-[2vh]">
-        <img src={tagline} alt="Go Beyond, Be The Best" className="h-[100px] w-auto" />
-        <span className="absolute right-[4vw] bottom-[2vh] text-white/60 font-bold tracking-[.28em] uppercase text-[12px]">
-          Hadiah {prizeIndex + 1} / {totalPrizes}
-        </span>
-      </div>
+    
     </div>
   );
 };
