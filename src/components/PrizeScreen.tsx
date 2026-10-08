@@ -1,12 +1,9 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import type { Prize, Participant } from "../data/prizes";
-import { api, DEFAULT_SETTINGS } from "../api";
-import type { DisplaySettings } from "../api";
+import { api } from "../api";
 import SpinBox from "./SpinBox";
 import bgImage from "../assets/background/bg 3.png";
-import logoXlsmart from "../assets/logo/Logogram XLSMART - Primary_1.png";
 // import tagline from "../assets/New_Hadiah/TAGLINE DOORPRIZE.png";
-import logoSidiva from "../assets/logo/LOGO SIDIVA GOLD.png";
 
 interface PrizeScreenProps {
   prize: Prize;
@@ -33,12 +30,7 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
   const [pool, setPool] = useState<Participant[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [settings, setSettings] = useState<DisplaySettings>(DEFAULT_SETTINGS);
   const completedRef = useRef(0);
-
-  useEffect(() => {
-    api.settings().then(setSettings).catch(() => {});
-  }, []);
 
   /* Muat pool peserta + pemenang yang sudah tersimpan di server (aman saat refresh / pindah hadiah) */
   useEffect(() => {
@@ -173,18 +165,6 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
         className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
       />
 
-      {/* ══ TOP BAR: XLSMART kiri, SiDIVA kanan ══ */}
-      <div className="absolute z-10 flex items-center justify-between flex-shrink-0 px-[4vw]  ">
-        <img
-          src={logoXlsmart} alt="XLSMART" className="w-auto"
-          style={{ height: settings.logoLeft.height, visibility: settings.logoLeft.visible ? "visible" : "hidden" }}
-        />
-        <img
-          src={logoSidiva} alt="SiDIVA" className="w-auto"
-          style={{ height: settings.logoRight.height, visibility: settings.logoRight.visible ? "visible" : "hidden" }}
-        />
-      </div>
-
       {/* ══ MAIN CONTENT ══ */}
       <div className={`relative z-10 flex flex-col flex-1 items-center justify-start min-h-0 px-[4vw] mt-[120px]   pb-[3vh] ${compact ? "gap-3" : "gap-5"}`}>
 
@@ -202,9 +182,9 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
         </div>
       </div>
 
-      {(loading || error) && (
+      {error && (
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 rounded-xl bg-black/70 px-6 py-3 text-[22px] text-white">
-          {error ?? "Memuat data peserta…"}
+          {error}
         </div>
       )}
 
