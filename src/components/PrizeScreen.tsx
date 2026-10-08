@@ -5,7 +5,7 @@ import type { DisplaySettings } from "../api";
 import SpinBox from "./SpinBox";
 import bgImage from "../assets/background/bg 3.png";
 import logoXlsmart from "../assets/logo/Logogram XLSMART - Primary_1.png";
-import tagline from "../assets/New_Hadiah/TAGLINE DOORPRIZE.png";
+// import tagline from "../assets/New_Hadiah/TAGLINE DOORPRIZE.png";
 import logoSidiva from "../assets/logo/LOGO SIDIVA GOLD.png";
 
 interface PrizeScreenProps {
@@ -174,7 +174,7 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
       />
 
       {/* ══ TOP BAR: XLSMART kiri, SiDIVA kanan ══ */}
-      {/* <div className="relative z-10 flex items-center justify-between flex-shrink-0 px-[4vw] pt-10 ">
+      <div className="relative z-10 flex items-center justify-between flex-shrink-0 px-[4vw] pt-10 ">
         <img
           src={logoXlsmart} alt="XLSMART" className="w-auto"
           style={{ height: settings.logoLeft.height, visibility: settings.logoLeft.visible ? "visible" : "hidden" }}
@@ -183,7 +183,7 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
           src={logoSidiva} alt="SiDIVA" className="w-auto"
           style={{ height: settings.logoRight.height, visibility: settings.logoRight.visible ? "visible" : "hidden" }}
         />
-      </div> */}
+      </div>
 
       {/* ══ MAIN CONTENT ══ */}
       <div className={`relative z-10 flex flex-col flex-1 items-center justify-start min-h-0 px-[4vw] mt-[120px]   pb-[3vh] ${compact ? "gap-3" : "gap-5"}`}>
