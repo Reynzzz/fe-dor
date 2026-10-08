@@ -1,6 +1,6 @@
-import img1jt from "../assets/New_Hadiah/1JT KOIN.png";
-import img700rb from "../assets/New_Hadiah/700RB KOIN.png";
-import img500rb from "../assets/New_Hadiah/500RB KOIN.png";
+import img1jt from "../assets/New_Hadiah/Asset 10.png";
+import img700rb from "../assets/New_Hadiah/Asset 9.png";
+import img500rb from "../assets/New_Hadiah/Asset 8.png";
 
 export interface Prize {
   id: number;
