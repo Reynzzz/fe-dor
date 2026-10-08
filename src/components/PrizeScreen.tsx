@@ -174,7 +174,7 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
       />
 
       {/* ══ TOP BAR: XLSMART kiri, SiDIVA kanan ══ */}
-      <div className="relative z-10 flex items-center justify-between flex-shrink-0 px-[4vw] pt-10 ">
+      <div className="absolute z-10 flex items-center justify-between flex-shrink-0 px-[4vw]  ">
         <img
           src={logoXlsmart} alt="XLSMART" className="w-auto"
           style={{ height: settings.logoLeft.height, visibility: settings.logoLeft.visible ? "visible" : "hidden" }}
