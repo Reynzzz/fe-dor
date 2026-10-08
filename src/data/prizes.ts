@@ -1,6 +1,6 @@
 import img1jt from "../assets/New_Hadiah/Asset 8.png";
 import img700rb from "../assets/New_Hadiah/Asset 9.png";
-import img500rb from "../assets/New_Hadiah/Asset 10.png";
+import img500rb from "../assets/New_Hadiah/Asset 11.png";
 
 export interface Prize {
   id: number;
@@ -24,7 +24,7 @@ export const PRIZES: Prize[] = [
     name: "UANG TUNAI",
     amountLabel: "Rp 500.000",
     image: img500rb,
-    quantity: 6,
+    quantity: 10,
     color: "#FFFFFF",
     glowColor: "rgba(255, 255, 255, 0.6)",
   },

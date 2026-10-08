@@ -174,7 +174,7 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
       />
 
       {/* ══ TOP BAR: XLSMART kiri, SiDIVA kanan ══ */}
-      <div className="relative z-10 flex items-center justify-between flex-shrink-0 px-[4vw] pt-10 ">
+      {/* <div className="relative z-10 flex items-center justify-between flex-shrink-0 px-[4vw] pt-10 ">
         <img
           src={logoXlsmart} alt="XLSMART" className="w-auto"
           style={{ height: settings.logoLeft.height, visibility: settings.logoLeft.visible ? "visible" : "hidden" }}
@@ -183,10 +183,10 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
           src={logoSidiva} alt="SiDIVA" className="w-auto"
           style={{ height: settings.logoRight.height, visibility: settings.logoRight.visible ? "visible" : "hidden" }}
         />
-      </div>
+      </div> */}
 
       {/* ══ MAIN CONTENT ══ */}
-      <div className={`relative z-10 flex flex-col flex-1 items-center justify-start min-h-0 px-[4vw] -mt-[120px]  pt-20 pb-[3vh] ${compact ? "gap-3" : "gap-5"}`}>
+      <div className={`relative z-10 flex flex-col flex-1 items-center justify-start min-h-0 px-[4vw] mt-[120px]   pb-[3vh] ${compact ? "gap-3" : "gap-5"}`}>
 
         {/* Headline hadiah (gambar: nominal + jumlah pemenang) */}
         <img
@@ -197,8 +197,8 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
 
         {/* Dua kolom pemenang: kiri & kanan */}
         <div className="flex flex-row items-start justify-center mt-5 gap-[350px] w-full">
-          <div className={`flex flex-col items-center ${compact ? "gap-3" : "gap-4"}`}>{leftIndices.map(renderSlot)}</div>
-          <div className={`flex flex-col items-center ${compact ? "gap-3" : "gap-4"}`}>{rightIndices.map(renderSlot)}</div>
+          <div className={`flex flex-col items-center ${compact ? "gap-5" : "gap-6"}`}>{leftIndices.map(renderSlot)}</div>
+          <div className={`flex flex-col items-center ${compact ? "gap-5" : "gap-6"}`}>{rightIndices.map(renderSlot)}</div>
         </div>
       </div>
 
@@ -209,9 +209,9 @@ const PrizeScreen: React.FC<PrizeScreenProps> = ({
       )}
 
       {/* ══ BOTTOM BAR: tagline ══ */}
-      <div className="relative z-10 flex items-center justify-center flex-shrink-0 px-[4vw] pb-[2vh]">
+      {/* <div className="relative z-10 flex items-center justify-center flex-shrink-0 px-[4vw] pb-[2vh]">
         <img src={tagline} alt="Go Beyond, Be The Best" className="h-[100px] w-auto" />
-      </div>
+      </div> */}
     </div>
   );
 };
